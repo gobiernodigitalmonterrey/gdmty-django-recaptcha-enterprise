@@ -4,8 +4,8 @@ from django.conf import settings
 from .utils import console_log
 from secrets import compare_digest
 
-DEBUG = settings.DEBUG
-RECAPTCHA_ENTERPRISE_BYPASS_TOKEN = settings.RECAPTCHA_ENTERPRISE_BYPASS_TOKEN
+DEBUG = settings.DEBUG or False
+RECAPTCHA_ENTERPRISE_BYPASS_TOKEN = settings.RECAPTCHA_ENTERPRISE_BYPASS_TOKEN or False
 
 
 class RecaptchaEnterprise:
