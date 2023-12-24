@@ -13,4 +13,4 @@ Usage:
 
 """
 
-__version__ = "2023.12-alpha0"
+__version__ = "2023.12"
