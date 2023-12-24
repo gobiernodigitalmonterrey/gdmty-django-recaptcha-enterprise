@@ -15,8 +15,22 @@ Usage:
 In settings.py:
 
 ```python
+# put 'gdmty_django_recaptcha_enterprise' in INSTALLED_APPS
+
+INSTALLED_APPS = [
+    ...,
+    'gdmty_django_recaptcha_enterprise',
+    ...
+]
+
+
+# import service_account from google.oauth2 and instanciate a Credentials object from your service account file 
+
 from google.oauth2 import service_account
 credentials = service_account.Credentials.from_service_account_file("YOUR_RECAPTCHA_CREDENTIALS_SERVICE_ACCOUNT_FILE")
+
+
+# Set the following variables 
 
 RECAPTCHA_ENTERPRISE_SITE_KEY = 'your-site-key'
 RECAPTCHA_ENTERPRISE_PROJECT_ID = 'your-project-id'
@@ -27,9 +41,14 @@ RECAPTCHA_ENTERPRISE_BYPASS_TOKEN = 'your-bypass-token' # Optional, only for deb
 In your view:
 
 ```python
+
+# import assess_token from gdmty_django_recaptcha_enterprise.recaptcha, then you can use it to assess tokens where you need it. In this excample we show a hypothetical view that receives a token from a POST request.
+
 from gdmty_django_recaptcha_enterprise.recaptcha import assess_token
 
+
 def my_view(request):
+    ...
     token = request.POST.get('token')
     action = 'action-to-verify'
     if assess_token(token, action):
@@ -38,4 +57,5 @@ def my_view(request):
     else:
         # Token is invalid
         pass
+    ...
 ```
