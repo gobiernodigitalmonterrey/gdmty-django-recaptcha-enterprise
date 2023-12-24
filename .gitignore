@@ -7,6 +7,8 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+.pypirc
+.pypirc-test
 .Python
 build/
 develop-eggs/
