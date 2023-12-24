@@ -87,5 +87,6 @@ class RecaptchaEnterprise:
         response = self.create_assessment(token, action)
 
         if response:
+            console_log("response", response.token_properties, response.token_properties, response.token_properties.valid)
             return response.token_properties.valid
         return False
