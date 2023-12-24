@@ -12,17 +12,20 @@ readme = "README.md"
 authors = [{ name = "César Benjamín", email = "mathereall@gmail.com" }]
 license = { file = "LICENSE" }
 classifiers = [
-    "License :: Apache License",
+    "License :: OSI Approved :: Apache Software License",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Framework :: Django",
     "Framework :: Django :: 4.2",
-    "Google :: reCaptcha",
 ]
 keywords = ["django", "recaptcha", "enterprise", "google", "captcha", "recaptcha-enterprise"]
-dependencies = {file = ["requirements.txt"]}
+dependencies = [
+    "django >= 4.2",
+    "google-cloud-recaptcha-enterprise",
+    "tomli; python_version < '3.11'",
+]
 requires-python = ">=3.10"
 
 [project.optional-dependencies]
