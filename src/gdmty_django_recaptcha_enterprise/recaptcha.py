@@ -77,7 +77,7 @@ class RecaptchaEnterprise:
             if compare_digest(token, RECAPTCHA_ENTERPRISE_BYPASS_TOKEN):
                 return True
 
-        if not action:
+        if not action and not settings.RECAPTCHA_ENTERPRISE_DEFAULT_ACTION:
             action = "VERIFY"
 
         response = self.create_assessment(token, action)
