@@ -77,6 +77,9 @@ class RecaptchaEnterprise:
             if compare_digest(token, RECAPTCHA_ENTERPRISE_BYPASS_TOKEN):
                 return True
 
+        if not action:
+            action = "VERIFY"
+
         response = self.create_assessment(token, action)
         console_log("response", response.token_properties, response.token_properties, response.token_properties.valid)
 
