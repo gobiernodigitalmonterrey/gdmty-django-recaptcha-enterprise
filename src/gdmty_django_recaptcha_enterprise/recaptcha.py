@@ -48,19 +48,12 @@ class RecaptchaEnterprise:
 
         # Check if the token is valid.
         if not response.token_properties.valid:
-            console_log(
-                "The CreateAssessment call failed because the token was "
-                + "invalid for for the following reasons: "
-                + str(response.token_properties.invalid_reason)
-            )
+            console_log("The CreateAssessment call failed because the token was invalid for for the following reasons: " + str(response.token_properties.invalid_reason))
             return
 
         # Check if the expected action was executed.
         if response.token_properties.action != recaptcha_action:
-            console_log(
-                "The action attribute in your reCAPTCHA tag does"
-                + "not match the action you are expecting to score"
-            )
+            console_log("The action attribute in your reCAPTCHA tag does not match the action you are expecting to score")
             return
         else:
             # Get the risk score and the reason(s)
@@ -85,8 +78,8 @@ class RecaptchaEnterprise:
                 return True
 
         response = self.create_assessment(token, action)
+        console_log("response", response.token_properties, response.token_properties, response.token_properties.valid)
 
         if response:
-            console_log("response", response.token_properties, response.token_properties, response.token_properties.valid)
             return response.token_properties.valid
         return False
