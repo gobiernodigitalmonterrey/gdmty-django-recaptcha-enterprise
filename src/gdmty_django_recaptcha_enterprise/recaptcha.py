@@ -19,7 +19,6 @@ class RecaptchaEnterprise:
         self.project_id = project_id
         self.site_key = site_key
         self.service_account_credentials = credentials
-
         self.client = recaptchaenterprise_v1.RecaptchaEnterpriseServiceClient(credentials=credentials)
 
     def create_assessment(self, token: str, recaptcha_action: str = None) -> Assessment | None:
