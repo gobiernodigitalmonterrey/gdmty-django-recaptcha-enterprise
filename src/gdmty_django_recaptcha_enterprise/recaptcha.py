@@ -77,6 +77,9 @@ class RecaptchaEnterprise:
         if DEBUG and RECAPTCHA_ENTERPRISE_BYPASS_TOKEN is not False:
             return compare_digest(token, RECAPTCHA_ENTERPRISE_BYPASS_TOKEN)
 
+        if not DEBUG and RECAPTCHA_ENTERPRISE_BYPASS_TOKEN is not False:
+            return False
+
         if not action and not settings.RECAPTCHA_ENTERPRISE_DEFAULT_ACTION:
             action = "VERIFY"
 
