@@ -62,5 +62,4 @@ def my_view(request):
     pass
     ...
 
-
 ```
