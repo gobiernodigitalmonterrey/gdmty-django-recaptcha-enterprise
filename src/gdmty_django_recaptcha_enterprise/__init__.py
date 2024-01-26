@@ -14,7 +14,7 @@ Usage:
 """
 
 __title__ = "gdmty_django_recaptcha_enterprise"
-__version__ = "2023.12-post0"
+__version__ = "24.1.0"
 __description__ = "reCAPTCHA Enterprise's Django module for verifying reCAPTCHA tokens"
 __url__ = "https://github.com/SIGAMty/gdmty-django-recaptcha-enterprise"
 __author__ = "César Benjamín"

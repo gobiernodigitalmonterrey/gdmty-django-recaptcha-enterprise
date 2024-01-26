@@ -1,11 +1,13 @@
 from google.cloud import recaptchaenterprise_v1
 from google.cloud.recaptchaenterprise_v1 import Assessment
 from django.conf import settings
-from .utils import console_log
 from secrets import compare_digest
+from logging import getLogger
 
 DEBUG = settings.DEBUG or False
 RECAPTCHA_ENTERPRISE_BYPASS_TOKEN = settings.RECAPTCHA_ENTERPRISE_BYPASS_TOKEN or False
+
+log = getLogger('gdmty_django_recaptcha_enterprise.recaptcha')
 
 
 class RecaptchaEnterprise:
@@ -47,23 +49,23 @@ class RecaptchaEnterprise:
 
         # Check if the token is valid.
         if not response.token_properties.valid:
-            console_log("The CreateAssessment call failed because the token was invalid for for the following reasons: " + str(response.token_properties.invalid_reason))
+            log.info(f"The CreateAssessment call failed because the token was invalid for for the following reasons: {str(response.token_properties.invalid_reason)}")
             return
 
         # Check if the expected action was executed.
         if response.token_properties.action != recaptcha_action:
-            console_log("The action attribute in your reCAPTCHA tag does not match the action you are expecting to score")
+            log.info("The action attribute in your reCAPTCHA tag does not match the action you are expecting to score")
             return
         else:
             # Get the risk score and the reason(s)
             # For more information on interpreting the assessment,
             # see: https://cloud.google.com/recaptcha-enterprise/docs/interpret-assessment
             for reason in response.risk_analysis.reasons:
-                console_log(reason)
-            console_log(f"The reCAPTCHA score for this token is: {str(response.risk_analysis.score)}")
+                log.info(f"response.risk_analysis.reasons: {reason}")
+            log.info(f"The reCAPTCHA score for this token is: {str(response.risk_analysis.score)}")
             # Get the assessment name (id). Use this to annotate the assessment.
             assessment_name = self.client.parse_assessment_path(response.name).get("assessment")
-            console_log(f"Assessment name: {assessment_name}")
+            log.info(f"Assessment name: {assessment_name}")
         return response
 
     def assess_token(self, token: str, action: str = None) -> bool:
@@ -72,15 +74,14 @@ class RecaptchaEnterprise:
             :param token: The token obtained from the client on passing the recaptchaSiteKey.
             :param action: The action name used to assess the token.
         """
-        if DEBUG and RECAPTCHA_ENTERPRISE_BYPASS_TOKEN:
-            if compare_digest(token, RECAPTCHA_ENTERPRISE_BYPASS_TOKEN):
-                return True
+        if DEBUG and RECAPTCHA_ENTERPRISE_BYPASS_TOKEN is not False:
+            return compare_digest(token, RECAPTCHA_ENTERPRISE_BYPASS_TOKEN)
 
         if not action and not settings.RECAPTCHA_ENTERPRISE_DEFAULT_ACTION:
             action = "VERIFY"
 
         response = self.create_assessment(token, action)
-        console_log("response", response.token_properties, response.token_properties, response.token_properties.valid)
+        log.info(f"Assessment response: {response}")
 
         if response:
             return response.token_properties.valid
