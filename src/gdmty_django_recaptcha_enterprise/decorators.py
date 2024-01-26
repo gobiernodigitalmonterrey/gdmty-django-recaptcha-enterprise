@@ -1,10 +1,18 @@
+from gdmty_django_recaptcha_enterprise.recaptcha import RecaptchaEnterprise
+
+recaptcha = RecaptchaEnterprise(
+    settings.RECAPTCHA_ENTERPRISE_PROJECT_ID,
+    settings.RECAPTCHA_ENTERPRISE_SITE_KEY_VERIFY,
+    settings.RECAPTCHA_ENTERPRISE_SERVICE_ACCOUNT_CREDENTIALS)
 
 
 def requires_recaptcha(action=None):
     def decorator(view_func):
         @wraps(view_func)
         def _wrapped_view(request, *args, **kwargs):
+
             recaptcha_token = request.data.get('recaptcha_token')
+
             if not recaptcha_token:
                 return HttpResponseBadRequest("Falta el token de recaptcha")
 
