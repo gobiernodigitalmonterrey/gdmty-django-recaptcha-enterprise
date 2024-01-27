@@ -1,4 +1,4 @@
-from gdmty_django_recaptcha_enterprise.recaptcha import RecaptchaEnterprise
+from .recaptcha import RecaptchaEnterprise
 
 recaptcha = RecaptchaEnterprise(
     settings.RECAPTCHA_ENTERPRISE_PROJECT_ID,
