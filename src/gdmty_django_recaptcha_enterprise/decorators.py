@@ -1,3 +1,4 @@
+from django.conf import settings
 from .recaptcha import RecaptchaEnterprise
 
 recaptcha = RecaptchaEnterprise(
