@@ -1,6 +1,7 @@
 from django.conf import settings
 from functools import wraps
 from .recaptcha import RecaptchaEnterprise
+from django.http import HttpResponseBadRequest, HttpResponseForbidden
 
 recaptcha = RecaptchaEnterprise(
     settings.RECAPTCHA_ENTERPRISE_PROJECT_ID,
