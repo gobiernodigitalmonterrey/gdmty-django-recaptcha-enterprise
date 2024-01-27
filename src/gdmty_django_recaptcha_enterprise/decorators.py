@@ -1,4 +1,5 @@
 from django.conf import settings
+from functools import wraps
 from .recaptcha import RecaptchaEnterprise
 
 recaptcha = RecaptchaEnterprise(
