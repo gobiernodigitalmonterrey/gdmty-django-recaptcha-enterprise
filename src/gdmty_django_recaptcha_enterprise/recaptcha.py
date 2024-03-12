@@ -74,8 +74,11 @@ class RecaptchaEnterprise:
             :param token: The token obtained from the client on passing the recaptchaSiteKey.
             :param action: The action name used to assess the token.
         """
-        if DEBUG and RECAPTCHA_ENTERPRISE_BYPASS_TOKEN is not False and compare_digest(token, RECAPTCHA_ENTERPRISE_BYPASS_TOKEN):
-            return True
+
+        if DEBUG:
+            if RECAPTCHA_ENTERPRISE_BYPASS_TOKEN is not False:
+                if compare_digest(token, RECAPTCHA_ENTERPRISE_BYPASS_TOKEN):
+                    return True
 
         if not DEBUG and RECAPTCHA_ENTERPRISE_BYPASS_TOKEN is not False:
             return False
