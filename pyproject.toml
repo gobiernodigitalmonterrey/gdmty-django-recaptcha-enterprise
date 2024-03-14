@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "gdmty-django-recaptcha-enterprise"
-version = "24.3.1"
+version = "24.3.2-dev0"
 description = "Library for Django that implements Google's reCaptcha Enterprise"
 readme = "README.md"
 authors = [{ name = "César Benjamín", email = "mathereall@gmail.com" }]
@@ -36,7 +36,7 @@ dev = ["black", "bumpver", "isort", "pip-tools", "pytest"]
 "Bug Tracker" = "https://github.com/gobiernodigitalmonterrey/gdmty-django-recaptcha-enterprise/issues"
 
 [tool.bumpver]
-current_version = "24.3.1"
+current_version = "24.3.2-dev0"
 version_pattern = "MAJOR.MINOR.PATCH[-PYTAGNUM]"
 commit_message = "bump version {old_version} -> {new_version}"
 tag_message = "{new_version}"
