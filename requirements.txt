@@ -12,7 +12,7 @@ certifi
     # via requests
 charset-normalizer
     # via requests
-django>=4.2.10
+django>=4.1.13
     # via gdmty-django-recaptcha-enterprise (pyproject.toml)
 google-api-core
     # via
