@@ -22,7 +22,7 @@ classifiers = [
 ]
 keywords = ["django", "recaptcha", "enterprise", "google", "captcha", "recaptcha-enterprise"]
 dependencies = [
-    "django >= 4.2",
+    "django >= 4.1.13",
     "google-cloud-recaptcha-enterprise",
     "tomli; python_version < '3.11'",
 ]
