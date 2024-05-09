@@ -26,15 +26,17 @@ INSTALLED_APPS = [
 ]
 
 # Set the following variables 
-RECAPTCHA_CREDENTIALS_SERVICE_ACCOUNT_FILE = os.path.join(BASE_DIR, "_gcp_sa", "recaptcha_enterprise_service_account_key.json")
-credentials = service_account.Credentials.from_service_account_file(RECAPTCHA_CREDENTIALS_SERVICE_ACCOUNT_FILE)
 RECAPTCHA_ENTERPRISE_PROJECT_ID = 'your-project-id'
-RECAPTCHA_ENTERPRISE_SERVICE_ACCOUNT_CREDENTIALS = credentials
+
 RECAPTCHA_ENTERPRISE_SITE_KEY_VERIFY = 'your-site-key' # This one is the site key for usage with seamless verification with the reCaptcha Enterprise API withouth user interaction
 RECAPTCHA_ENTERPRISE_SITE_KEY_CHALLENGE = 'your-site-key' # This one is the site key for usage with challenge verification with the reCaptcha Enterprise API with user interaction
 RECAPTCHA_ENTERPRISE_BYPASS_TOKEN = 'your-bypass-token' # Optional, only for debug and development usage. For production must be False. When DEBUG=False this must be False too or will not pass assesments never.
 
+RECAPTCHA_CREDENTIALS_SERVICE_ACCOUNT = your-service-account
+credentials = service_account.Credentials.from_service_account_info(RECAPTCHA_CREDENTIALS_SERVICE_ACCOUNT)
+RECAPTCHA_ENTERPRISE_SERVICE_ACCOUNT_CREDENTIALS = credentials
 
+# from_service_account_info() is a method from Credentials class that creates a Credentials object from a service account from a dictionary. You can use a json file with the service account info and load it with json.load to get the dictionary. or use from_service_account_file() method from Credentials class to load the json file and get the Credentials object directly.
 ```
 
 In your code:
@@ -61,5 +63,4 @@ def my_view(request):
     ...
     pass
     ...
-
 ```

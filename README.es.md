@@ -15,17 +15,17 @@ pip install gdmty-django-recaptcha-enterprise
 En settings.py:
 
 ```python
-# import service_account from google.oauth2 and instanciate a Credentials object from your service account file 
+# Importar service_account de google.oauth2 e instanciar un objeto Credentials desde la cuenta de servicio
 from google.oauth2 import service_account
 
-# put 'gdmty_django_recaptcha_enterprise' in INSTALLED_APPS
+# Agregar 'gdmty_django_recaptcha_enterprise' en INSTALLED_APPS
 INSTALLED_APPS = [
     ...,
     'gdmty_django_recaptcha_enterprise',
     ...
 ]
 
-# Set the following variables 
+# Configurar las siguientes variables
 RECAPTCHA_CREDENTIALS_SERVICE_ACCOUNT_FILE = os.path.join(BASE_DIR, "_gcp_sa", "recaptcha_enterprise_service_account_key.json")
 credentials = service_account.Credentials.from_service_account_file(RECAPTCHA_CREDENTIALS_SERVICE_ACCOUNT_FILE)
 RECAPTCHA_ENTERPRISE_PROJECT_ID = 'your-project-id'
@@ -38,8 +38,8 @@ RECAPTCHA_ENTERPRISE_BYPASS_TOKEN = 'your-bypass-token' # Optional, only for deb
 En el código:
 
 ```python
-# import assess_token from gdmty_django_recaptcha_enterprise.recaptcha, then you can use it to assess tokens where you need it. In this excample we show a hypothetical view that receives a token from a POST request.
-# You can use the decorator requires_recaptcha to verify the token before the view is executed.
+# Importar assess_token de gdmty_django_recaptcha_enterprise.recaptcha, luego puede usarse para evaluar tokens donde lo necesites. En este ejemplo mostramos una vista hipotética que recibe un token de una solicitud POST.
+# Ahora entonces, puede usarse el decorador requires_recaptcha para verificar el token antes de que se ejecute la vista.
 
 from gdmty_django_recaptcha_enterprise.recaptcha import RecaptchaEnterprise
 from gdmty_django_recaptcha_enterprise.decorators import requires_recaptcha
@@ -51,13 +51,12 @@ recaptcha = RecaptchaEnterprise(
     settings.RECAPTCHA_ENTERPRISE_SITE_KEY_VERIFY, 
     settings.RECAPTCHA_ENTERPRISE_SERVICE_ACCOUNT_CREDENTIALS)
 
-# each time you need to assess a token you can use the assess_token method from the recaptcha object, can be used from this decorator using the action parameter to assess.
-# When the decorator is used, the decorator handles de request to get the token from the request and assess it, if the token is valid the view is executed, if not, the view is not executed and a 403 response is returned.
-# 
+# Cada vez que necesite evaluar un token, puede usar el método assess_token del objeto recaptcha, puede usarse desde este decorador usando el parámetro de acción para evaluar.
+# Cuando se usa el decorador, el decorador maneja la solicitud para obtener el token de la solicitud y evaluarlo, si el token es válido, se ejecuta la vista, si no, la vista no se ejecuta y se devuelve una respuesta 403.
+
 @requires_recaptcha(action='action-to-verify')
 def my_view(request):
     ...
     pass
     ...
 ```
-
