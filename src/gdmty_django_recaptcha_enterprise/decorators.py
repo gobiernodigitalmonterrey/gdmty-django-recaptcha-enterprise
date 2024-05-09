@@ -27,4 +27,3 @@ def requires_recaptcha_token(action=None):
         return _wrapped_view
 
     return decorator
-
