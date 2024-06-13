@@ -47,6 +47,11 @@ class RecaptchaEnterprise:
 
         response = self.client.create_assessment(request)
 
+        log.info(f"response: {response}")
+        log.info(f"response.token_properties: {response.token_properties}")
+        log.info(f"response.token_properties.valid: {response.token_properties.valid}")
+        log.info(f"response.token_properties.valid: {type(response.token_properties.invalid_reason)}")
+
         # Check if the token is valid.
         if not response.token_properties.valid:
             log.info(f"The CreateAssessment call failed because the token was invalid for for the following reasons: {str(response.token_properties.invalid_reason)}")
