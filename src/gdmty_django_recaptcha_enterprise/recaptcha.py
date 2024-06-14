@@ -44,13 +44,7 @@ class RecaptchaEnterprise:
         request = recaptchaenterprise_v1.CreateAssessmentRequest()
         request.assessment = assessment
         request.parent = project_name
-
         response = self.client.create_assessment(request)
-
-        log.info(f"response: {response}")
-        log.info(f"response.token_properties: {response.token_properties}")
-        log.info(f"response.token_properties.valid: {response.token_properties.valid}")
-        log.info(f"response.token_properties.valid: {type(response.token_properties.invalid_reason)}")
 
         # Check if the token is valid.
         if not response.token_properties.valid:
